@@ -1,4 +1,5 @@
-import { getUserDetail } from "../auth/services/user-services";
+import { getUserDetail } from "../_lib/services/user-services";
+import Projects from "../projects/page";
 
 export default async function UserPage({
   params,
@@ -8,8 +9,9 @@ export default async function UserPage({
   const { username } = await params;
   const userDetail = await getUserDetail(username)
   return (
-    <div>
+    <div className="px-4 py-2">
         <h1>Hello {userDetail?.name}</h1>
+        <Projects />
     </div>
   )
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { AuthService } from "./services/auth-services";
-import { UserLoginType, UserType } from "./types/user-types";
+import { AuthService } from "../services/auth-services";
+import { UserLoginType, UserType } from "../types/user-types";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUserName, setCurrentUserName] = useState<string>("Guest");

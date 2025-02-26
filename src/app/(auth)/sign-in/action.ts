@@ -1,6 +1,6 @@
 "use server"
 
-import { UserLoginType, UserType } from "../auth/types/user-types";
+import { UserLoginType, UserType } from "../../_lib/types/user-types";
 
 export async function signInWithAuth(formData: FormData, handleLogin: (UserLogin: UserLoginType) => Promise<UserType>) {
     "use server";

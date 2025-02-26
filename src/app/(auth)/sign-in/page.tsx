@@ -2,7 +2,7 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { useUserAuth } from "../auth/user-provider";
+import { useUserAuth } from "../../_lib/context/user-provider";
 
 export default function SignIn() {
   const { handleLogin } = useUserAuth();

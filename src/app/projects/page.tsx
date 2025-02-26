@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { getProjects } from "../auth/services/project-services";
+import { getProjects } from "../_lib/services/project-services";
 
 export default function Projects() {
 

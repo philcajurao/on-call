@@ -1,6 +1,6 @@
 "use client"
 
-import { useUserAuth } from "../user-provider";
+import { useUserAuth } from "../_lib/context/user-provider";
 
 export default function NavBar() {
   const { currentUserName } = useUserAuth();

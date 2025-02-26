@@ -1,5 +1,4 @@
 import { UserLoginType } from '../types/user-types';
-import { AuthType } from './../types/auth-type';
 import { getUsers } from './user-services';
 
 export const AuthService = {
@@ -14,3 +13,4 @@ export const AuthService = {
         }
     }
 }
+

@@ -1,4 +1,4 @@
-import { getProjectDetail } from "@/app/auth/services/project-services";
+import { getProjectDetail } from "@/app/_lib/services/project-services";
 
 export default async function ProjectDetail({
   params,
