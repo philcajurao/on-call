@@ -5,7 +5,7 @@ import { AuthService } from "../services/auth-services";
 import { UserLoginType, UserType } from "../types/user-types";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUserName, setCurrentUserName] = useState<string>("Guest");
+  const [currentUserName, setCurrentUserName] = useState<string | null>(null);
 
   const handleLogin = async (UserLogin: UserLoginType) => {
     try {
@@ -15,15 +15,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         return res
       }
 
-      return defaultData
+      return null
     } catch (error) {
       console.error(error);
-      return defaultData
+      return null
     }
   };
 
   const handleLogout = async () => {
-    return setCurrentUserName("Guest");
+    return setCurrentUserName(null);
   };
 
   const ContextValues = {
@@ -36,25 +36,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 
-const defaultData =  {
-    id: 0,
-    email: "",
-    username: "guest",
-    name: "Guest",
-    password: "",
-    status: ""
-}
-
 const AuthContext = {
-  currentUserName: "Guest",
-  handleLogin: async () => (defaultData),
-  handleLogout: async () => {},
+  currentUserName: null,
+  handleLogin: async () => null,
+  handleLogout: async () => null,
 };
 
 type AuthContextType = {
   currentUserName: string | null;
-  handleLogin: (UserLogin: UserLoginType) => Promise<UserType>;
-  handleLogout: () => Promise<void>;
+  handleLogin: (UserLogin: UserLoginType) => Promise<UserType | null>;
+  handleLogout: () => Promise<void | null>;
 };
 
 const UserContext = createContext<AuthContextType>(AuthContext);
