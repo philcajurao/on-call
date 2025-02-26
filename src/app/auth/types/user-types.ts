@@ -6,3 +6,8 @@ export type UserType = {
     password: string,
     status: string
 }
+
+export type UserLoginType = {
+    username: string,
+    password: string,
+}

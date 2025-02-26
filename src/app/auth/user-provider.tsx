@@ -1,29 +1,62 @@
 "use client";
 
-import { createContext, useContext } from "react";
-import { UserType } from "./types/user-types";
+import { createContext, useContext, useState } from "react";
+import { AuthService } from "./services/auth-services";
+import { UserLoginType, UserType } from "./types/user-types";
 
-const guestUser =  {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currentUserName, setCurrentUserName] = useState<string>("Guest");
+
+  const handleLogin = async (UserLogin: UserLoginType) => {
+    try {
+      const res = await AuthService.login(UserLogin);
+      if (res) {
+        setCurrentUserName(res.name);
+        return res
+      }
+
+      return defaultData
+    } catch (error) {
+      console.error(error);
+      return defaultData
+    }
+  };
+
+  const handleLogout = async () => {
+    return setCurrentUserName("Guest");
+  };
+
+  const ContextValues = {
+    currentUserName,
+    handleLogin,
+    handleLogout,
+  };
+
+  return <UserContext value={ContextValues}>{children}</UserContext>;
+};
+
+
+const defaultData =  {
     id: 0,
-    email: "guest",
+    email: "",
     username: "guest",
     name: "Guest",
-    password: "guest",
-    status: "guest"
+    password: "",
+    status: ""
 }
 
-const UserContext = createContext<UserType>(guestUser);
+const AuthContext = {
+  currentUserName: "Guest",
+  handleLogin: async () => (defaultData),
+  handleLogout: async () => {},
+};
 
-export const UserProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  return(
-    <UserContext value={guestUser}>
-        {children}
-    </UserContext>
-  )
-}
+type AuthContextType = {
+  currentUserName: string | null;
+  handleLogin: (UserLogin: UserLoginType) => Promise<UserType>;
+  handleLogout: () => Promise<void>;
+};
 
-export const useUser = () => useContext(UserContext)
+const UserContext = createContext<AuthContextType>(AuthContext);
+
+export const useUserAuth = () => useContext(UserContext);
